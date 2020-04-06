@@ -1,0 +1,155 @@
+\documentclass[16pt]{article}
+\usepackage[russian]{babel}
+\usepackage{a4wide}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[2]{%
+    \def\svgwidth{#2 mm}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\newtheorem{Th}{Теорема}
+\newenvironment{Proof}{\par\noindent{\bf Доказательство.}}{\hfill$\scriptstyle\blacksquare$}
+\newenvironment{Sol}{\par\noindent{\it Решение:}}
+
+
+\DeclareMathOperator{\Arccos}{arccos}
+\DeclareMathOperator{\Arctg}{arctg}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\SI}{SI}
+\DeclareMathOperator*{\Argmax}{Argmax}
+\DeclareMathOperator*{\Var}{Var}
+
+
+\newcommand\Real{\mathbb{R}} 
+\newcommand\A{(\cdot)} 
+\newcommand\Sup[2]{\rho( #1 \, | \, #2 )}
+\newcommand\Sum[2]{\sum\limits_{#1}^{#2}}
+\newcommand\Scal[2]{\langle #1,\, #2 \rangle}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand\Int[2]{\int\limits_{#1}^{#2}}
+\newcommand\PS{\mathcal{P}}
+\newcommand\X{\mathcal{X}} 
+\newcommand\Pict[3]{
+\begin{figure}[h!]
+    \centering
+    \incfig{#1}{#3}
+    \caption{#2}
+    \label{fig:#1}
+\end{figure}
+}
+
+
+
+\begin{document}
+\paragraph{Домашнее задание от 14-ого дня карантина}
+\paragraph{Задача 14.10.(б, в, г)} Найти сопряженный к опервтору $A\colon l_1 \to l_1.$
+\begin{itemize}
+\item[(б)] $Ax = (\lambda_1 x_1, \lambda_2 x_2, \ldots ), \quad |\lambda_n| \leqslant 1, \ n \in \mathbb{N}$;
+\item[(в)] $Ax = (0, x_1, x_2, \ldots)$;
+\item[(г)] $Ax= (x_2, x_3, \ldots)$.
+\end{itemize} 
+
+\begin{Sol}
+Поскольку $l_1^* = l_\infty$, сопряженный оператор $A^*\colon l_\infty \to l_\infty$.
+\begin{itemize}
+\item[(б)] $\forall y \in l_\infty \ \forall x \in l_1 \quad (A^*y)(x) = y(Ax) = \sum_{n=1}^\infty 
+(\lambda_n y_n)x_n$, откуда получаем, что\\ $$A^*y = (\lambda_1 y_1, \lambda_2 y_2, \ldots ).$$
+\item[(в)] $\forall y \in l_\infty \ \forall x \in l_1 \quad (A^*y)(x) = y(Ax) = y_2 x_1 + y_3 x_2 + \ldots$,
+ поэтому $$A^*y = (y_2, y_3, \ldots).$$
+\item[(г)] Аналогично прошлому пункту показывается, что $$A^*y = (0, y_1, y_2, \ldots).$$
+\end{itemize} 
+\end{Sol}
+
+\paragraph{Задача 14.18} Оператор $A\colon l_2 \to l_1, \ Ax = x$ определен на множестве \\
+$$D(A) = \left\{x \in l_2 \colon \sum\limits_{n=1}^{\infty}|x_n| < \infty\right\}.$$
+\begin{itemize}
+\item[(а)] Доказать, что $ \overline{D(A)} = l_2$.
+\item[(б)] Доказать, что $A$ не является ограниченным на $D(A)$.
+\item[(в)] Найти $A^*$ и $D(A^*)$.
+\end{itemize}
+
+\begin{Sol}
+\begin{itemize}
+\item[(а)] $D(A)$ является всюду плотным в $l_2$, поскольку любой элемент $x = (x_1, x_2, \ldots)
+ \in l_2$ можно приблизить последовательностью
+$$x^{\left(n\right)} = (x_1, \ldots, x_n, 0, 0, \dots) \in D(A),$$ при этом\\
+$$\|x^{\left(n\right)} - x\|^2 = 
+\sum\limits_{k = n+1}^\infty x_k^2 \to 0.$$
+\item[(б)] Рассмотрим последовательность $$x_n = \frac{\sqrt{6}}{\pi}\left(1, \frac{1}{2}, \ldots, \frac{1}{n}, 0, \ldots\right) \in D(A)$$.
+Норма ее элементов $\|x_n\|_{l_2} \leqslant 1$, однако $\|Ax\|_{l_1} = \|x_n\|_{l_1} \to \infty$, откуда следует,
+ что функционал $A$ не является ограниченным.
+\item[(в)] Оператор $A^* \colon l_\infty \to l_2$ существует и определен однозначно. Это следует из пункта (a) и теоремы 1 параграфа 18.4 \cite{tren}. При этом $$\forall y \in l_\infty \ \forall x \in l_2 \quad
+(A^*y)(x) = y(Ax) = \sum_{n=1}^\infty y_n x_n,$$ поэтому $A^*y =y$, и, поскольку $A^*y \in l_2$, оператор определен
+на множестве $$D(A^*) = \left\{y \in l_\infty \colon \sum_{n=1}^\infty y_n^2 < \infty \right\}.$$
+\end{itemize}
+\end{Sol}
+
+\paragraph{Задача 14.19} Оператор $A\colon L_2[0, 1] \to L_2[0, 1], \ (Ax)(t) = x(t^2)$ определен на множестве \\
+$$D(A) = \left\{x\A \in L_2[0,1] \colon \Int{0}{1}x^2(t^2) < \infty\right\}.$$
+\begin{itemize}
+\item[(а)] Доказать, что $\overline{D(A)} = L_2[0,1]$.
+\item[(б)] Доказать, что $A$ не является ограниченным на $D(A)$.
+\item[(в)] Найти $A^*$ и $D(A^*)$.
+\end{itemize}
+
+\begin{Sol}
+\begin{itemize}
+\item[(а)] Следует из того, что тригонометрическая система лежит в $D(A)$ и является плотным в $L_2[0,1]$
+ множеством.
+\item[(б)] Рассмотрим последовательность
+$$
+x_n(t) =
+\begin{cases}
+0, & t \in [0, \frac{1}{n}) \\
+\frac{1}{\sqrt{2}}t^{-\frac{1}{4}}, & t \in [\frac{1}{n}, 1].
+\end{cases}
+$$
+Заметим, что $$\Norm{x_n\A}^2 = \frac12 \Int{\frac{1}{n}}{1}\frac{1}{\sqrt{t}}dt = 1 - \frac{1}{\sqrt{n}} \to 1,$$
+ однако
+$$\Norm{Ax_n}^2 = \frac12 \Int{\frac{1}{n}}{1}\frac{1}{t}dt = \frac12 \ln n \to \infty,$$
+поэтому оператор не является ограниченным.
+
+\item[(в)] Так как пространство $L_2[0, 1]$ гильбертово, верно соотношение
+$$ \Scal{y}{Ax} = \Scal{x}{A^*y},$$
+при этом $\Scal{y}{Ax} = \Int{0}{1}y(t)x(t^2)dt = \{s = t^2\} = \Int{0}{1}x(s)\frac{y(\sqrt{s})}{2\sqrt{s}}ds,$ откуда
+$$ (A^*y)(t) = \frac{y(\sqrt{t})}{2\sqrt{t}}.$$
+Поскольку споряженный оператор принимает значения из $L_2[0, 1]$, его областью определения является множество
+$$D(A^*) = \left\{y\A \in L_2[0,1] \colon \Int{0}{1} \frac{y^2(\sqrt{t})}{t}dt < \infty\right\}.$$
+\end{itemize}
+\end{Sol}
+
+\newpage
+\paragraph{Задача 7} Найти сопряженный оператор и его область определения к
+оператору\\ $A\colon L_2[0, 1] \to L_2[0, 1], \ (Ax)(t) = x'(t)$, определенному на множестве \\
+$$D(A) = \{x\A \in L_2[0,1] \colon x\A \text{\ непрерывно дифференцируема}, \ x(0) = x(1) = 0\}.$$
+
+\begin{Sol}
+Множество $\{\sin(\pi n x) ,\ n \in \mathbb{Z}\} \subset D(A)$ является плотным в $L_2[0,1]$ множеством, поэтому 
+$\overline{D(A)} = L_2[0, 1]$, и сопряженный оператор определен однозначно. 
+
+$$\Scal{Ax}{y} = \Int{0}{1} x'(t)y(t)dt = x(t)y(t)\Big|_0^1 - \Int{0}{1} x(t)y'(t)dt = - \Int{0}{1} x(t)y'(t)dt
+=\Scal{x}{A^*y}.$$
+
+Таким образом, $$(A^*y)(t) = -y'(t).$$
+
+Однако интегрирование по частям  возможно, если $y\A$ непрерывно дифференцируема. Из теоремы 2 п.18.4. \cite{tren} следует замкнутость $D(A^*)$, поэтому область определения является пополнением пространства непрерывно дифференцируемых функций, то есть пространством Соболева $H^1[0, 1]$,
+и $y'\A$ рассматривается как обобщенная производная в смысле Соболева. Интегрирование по частям для функций из 
+$y\A \in H^1[0,1]$ можно получить предельным переходом, приближая $y\A$ непрерывно дифференцируемыми функциями. 
+\end{Sol}
+
+\newpage
+\begin{thebibliography}{0}
+\bibitem{tren}
+	Треногин~В.А. Функциональный анализ, --- М.: Наука, 1980.
+\end{thebibliography} 
+\end{document}
+

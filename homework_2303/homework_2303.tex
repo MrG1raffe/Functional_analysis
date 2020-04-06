@@ -1,0 +1,148 @@
+\documentclass[16pt]{article}
+\usepackage[russian]{babel}
+\usepackage{a4wide}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[2]{%
+    \def\svgwidth{#2 mm}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\newtheorem{Th}{Теорема}
+\newenvironment{Proof}{\par\noindent{\bf Доказательство.}}{\hfill$\scriptstyle\blacksquare$}
+\newenvironment{Sol}{\par\noindent{\it Решение:}}
+
+
+\DeclareMathOperator{\Arccos}{arccos}
+\DeclareMathOperator{\Arctg}{arctg}
+\DeclareMathOperator{\SI}{SI}
+\DeclareMathOperator*{\Argmax}{Argmax}
+\DeclareMathOperator*{\Var}{Var}
+
+\newcommand\Real{\mathbb{R}} 
+\newcommand\A{(\cdot)} 
+\newcommand\Sup[2]{\rho( #1 \, | \, #2 )}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand\Int[2]{\int\limits_{#1}^{#2}}
+\newcommand\PS{\mathcal{P}}
+\newcommand\X{\mathcal{X}} 
+\newcommand\Pict[3]{
+\begin{figure}[h!]
+    \centering
+    \incfig{#1}{#3}
+    \caption{#2}
+    \label{fig:#1}
+\end{figure}
+}
+
+
+
+\begin{document}
+\paragraph{Домашнее задание от 7-ого дня карантина}
+\paragraph{Задача 13.8.} В пространстве $l_2$ положим $f_n(x) = x_n$. Доказать, что $f_n$ *-слабо сходится к $0$Верно ли, что $f_n \overset{\Norm{\cdot}}{\to} 0$? \\
+
+\begin{Sol}
+*-слабая сходимость вытекает из того, что $\forall x \in l_2 \quad f_n(x) = x_n \to 0$ (так как 
+$\sum\limits_{n=1}^{+\infty} x_n^2 < \infty$).
+Но, поскольку $|f_n(x)| = |x_n| \leqslant \Norm{x}, \quad |f_n(e_n)| = 1$, норма каждого функционала 
+$\Norm{f_n(\cdot)} = 1 \nrightarrow 0$, и последовательность не является сильно сходящейся.
+\end{Sol}
+
+\paragraph{Задача 13.9.} В пространстве $L_2[-1, 1]$ заданы $f_n(x) = \Int{-1}{1}x(t)\cos(\pi n t) dt$.
+\begin{itemize}
+\item[(a)] Доказать, что $f_n$ является линейным ограниченным функционалом и найти $\Norm{f_n}$.
+\item[(b)] Доказать, что $f_n$ *-слабо сходится к нулю.
+\item[(c)] Верно ли, что $f_n \overset{\Norm{\cdot}}{\to} 0$? \\
+\end{itemize}
+
+\begin{Sol}
+\begin{itemize}
+\item[(a)] По теореме Рисса любой линейный непрерывный функционал в $L_2[-1, 1]$ имеет вид 
+$f(x) = \langle \tilde{f}, x \rangle, \quad \tilde{f} \in L_2[-1, 1]$. Для заданного функционала 
+$\tilde{f_n} = \cos(\pi n t)$, и его норма равна
+$$\Norm{f_n(\cdot)} = \Norm{\tilde{f_n}(\cdot)} = \sqrt{\Int{-1}{1} \cos^2(\pi n t) dt} = 1.$$
+\item[(b)] Поскольку система $\{\cos(\pi n t), \ n \in \mathbb{N}\}$ является ортонормированной, \\
+$\langle \cos(\pi n t), x \rangle_{L_2} = f_n(x) \underset{n \to \infty}{\rightarrow} 0 \quad \forall x \in L_2[-1, 1]$ в силу неравенства Бесселя,
+ что и является *-слабой сходимостью к нулю по определению.
+\item[(c)] Неверно, так как $\forall n \in \mathbb{N} \quad \Norm{f_n(\cdot)} = 1 \nrightarrow 0$.
+\end{itemize}
+\end{Sol}
+
+\paragraph{Задача 13.10.} В пространстве $C^1[-1, 1]$ заданы функционалы
+$$f_\epsilon(x) = \frac{1}{2\epsilon}[x(\epsilon) - x(-\epsilon)], \quad f_0(x) = x'(0), \quad |\epsilon| < 1.$$
+\begin{itemize}
+\item[(a)] Доказать, что $f_\epsilon, \ f_0$ --- непрерывные линейные функционалы и найти их нормы.
+\item[(b)] Доказать, что $f_\epsilon$ *-слабо сходится к $f_0$ при $\epsilon \to 0$.
+\item[(c)] Верно ли, что $f_n \overset{\Norm{\cdot}}{\to} 0$ при $\epsilon \to 0$? \\
+\end{itemize}
+\begin{Sol}
+\begin{itemize}
+\item[(a)] $|f_0(x)| = |x'(0)| \leqslant \Norm{x(\cdot)}_{C^1}$, поэтому функционал ограничен, и 
+$\Norm{f_0(\cdot)} \leqslant 1$. Покажем, что эта величина достигается. Введем вспомогательную функцию
+\[
+\SI(t) =
+\begin{cases}
+-1, & x < -\frac{\pi}{2}, \\
+sin(x), & x \in [-\frac{\pi}{2}, \frac{\pi}{2}], \\
+1, & x > \frac{\pi}{2}.
+\end{cases}
+\]
+
+Рассмотрим последовательность
+$$x_n(t) = \frac{1}{2n} \SI(2nx),\quad \Norm{x_n(\cdot)}_{C^1} = \Norm{x_n\A}_0 + \Norm{x_n'\A}_0 = 
+\frac{1}{n} + 1,$$
+\Pict{gr1}{График $x_n(t)$}{35}
+$$\frac{|f_0(x_n)|}{\Norm{x_n(\cdot)}} = \frac{n}{n+1}  \underset{n \to \infty}{\to} 1 \
+\Rightarrow \Norm{f_0\A} = 1.$$
+Докажем ограниченность $f_\epsilon\A$:
+$$|f_\epsilon(x)| = \frac{\epsilon}{2\epsilon(1+\epsilon)}[x(\epsilon) - x(-\epsilon)] + 
+\frac{1}{2\epsilon(1+\epsilon)}[x(\epsilon) - x(-\epsilon)].
+$$
+Оценивая первое слагаемое нормами в $C[-1, 1]$, а второе раскладывая по теореме Лагранжа, получим
+$$|f_\epsilon(x)| = \frac{\Norm{x\A}_0}{1 + \epsilon} + \frac{x'(\xi)}{1 + \epsilon} \leqslant
+\frac{1}{1 + \epsilon} \Norm{x\A}_{C^1},$$
+откуда следует, что $f_\epsilon \A$ ограничен, и его норма не провосходит $\frac{1}{1+\epsilon}$.
+Оценка достигается на функции 
+$$ x^*(t) =  
+\begin{cases}
+-\epsilon, & t < -\epsilon, \\
+t, & t \in [-\epsilon, \epsilon]\\
+\epsilon, & t > \epsilon,
+\end{cases}
+$$
+поскольку $\Norm{x^*\A} = \epsilon + 1,$ и $f_\epsilon(x^*) = 1,$ однако эта функция не является непрерывно
+дифференцирумой в точках $-\epsilon$ и $\epsilon$. Построим последовательность функций со <<скругленными углами>>,
+сходящуюся к $x^*\A$:
+$$x_n(t) = x^*(t) + \frac{1}{n}\SI^+(n(t - \epsilon)) + \frac{1}{n}\SI^-(n(t + \epsilon)),$$
+\Pict{gr2}{График $x_n(t)$}{35}
+где $\SI^+ \A$ и $\SI^- \A$ --- положительная и отрицательная срезки. \\
+Функции $x_n \A \in C^1[-1, 1]$, и $\Norm{x_n \A}_{C^1} \to \Norm{x^*\A}_{C^1}, \ f_\epsilon(x_n) = 1$, 
+что доказывает $$\Norm{f_\epsilon \A} = \frac{1}{1 + \epsilon}.$$
+\item[(b)] Следует из определения производной.
+\item[(c)] Докажем отсутствие сильной сходимости, ограничив снизу $\Norm{(f_\epsilon - f_0)\A}.$ \\
+Для этого рассмотрим функцию
+$x(t) = 
+\begin{cases}
+\SI(\frac{\pi t}{\epsilon} - \frac{\pi}{2}) + 1, & t \geqslant 0, \\
+\SI(\frac{\pi t}{\epsilon} + \frac{\pi}{2}) - 1, & t < 0.
+\end{cases}$
+
+\Pict{gr4}{График $x(t)$}{35}
+
+Заметим, что $$x'(0) = 0, \quad f_\epsilon(x) = \frac{2}{\epsilon}, \quad
+\Norm{x\A}_{C^1} = 2 + \frac{\pi}{\epsilon}.$$
+Тогда 
+$$\frac{|f_\epsilon(x) - f_0(x)|}{\Norm{x\A}} = \frac{2}{\pi + 2\epsilon} > \frac{2}{\pi + 2} \quad \forall \epsilon \in (0, 1),$$
+откуда следует, что $\Norm{(f_\epsilon - f_0)\A} \nrightarrow 0$.
+\end{itemize}
+\end{Sol}
+\end{document}
+
