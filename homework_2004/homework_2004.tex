@@ -1,0 +1,170 @@
+\documentclass[16pt]{article}
+\usepackage[russian]{babel}
+\usepackage{a4wide}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[2]{%
+    \def\svgwidth{#2 mm}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\newtheorem{Th}{Теорема}
+\newenvironment{Proof}{\par\noindent{\bf Доказательство.}}{\hfill$\scriptstyle\blacksquare$}
+\newenvironment{Sol}{\par\noindent{\it Решение:}}
+
+
+\DeclareMathOperator{\Arccos}{arccos}
+\DeclareMathOperator{\Arctg}{arctg}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\Ker}{ker}
+\DeclareMathOperator{\Ima}{im}
+\DeclareMathOperator*{\Argmax}{Argmax}
+\DeclareMathOperator*{\Var}{Var}
+
+
+\newcommand\Real{\mathbb{R}} 
+\newcommand\A{(\cdot)} 
+\newcommand\Sup[2]{\rho( #1 \, | \, #2 )}
+\newcommand\Sum[2]{\sum\limits_{#1}^{#2}}
+\newcommand\Scal[2]{\langle #1,\, #2 \rangle}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand\Int[2]{\int\limits_{#1}^{#2}}
+\newcommand\PS{\mathcal{P}}
+\newcommand\X{\mathcal{X}} 
+\newcommand\Pict[3]{
+\begin{figure}[h!]
+    \centering
+    \incfig{#1}{#3}
+    \caption{#2}
+    \label{fig:#1}
+\end{figure}
+}
+
+
+
+\begin{document}
+\paragraph{Домашнее задание от 35-ого дня карантина}
+\paragraph{Задача 18.2.} Доказать, что оператор $A\colon L_2[0,\,1]\to L_2[0,\,1],$ $$(Ax)(t) = tx(t)$$
+является неотрицательным и самосопряженным.
+
+\begin{Sol}
+Для любых $x, y$
+$$\Scal{Ax}{y} = \Int{0}{1}tx(t)y(t)dt = \Scal{x}{Ay}.$$
+$$\Scal{Ax}{x} = \Int{0}{1}tx^2(t)dt \geqslant 0.$$
+\end{Sol}   
+
+\paragraph{Задача 18.3.} Доказать, что оператор $A\colon L_2[0,\,1]\to L_2[0,\,1],$ 
+$$\quad (Ax)(t) = \Int{0}{1}x(s)e^{s+t}ds$$
+является неотрицательным и самосопряженным.
+
+\begin{Sol}
+Ядро интегрального оператора симметрично, следовательно, он является самосопряженным.
+Покажем неотрицательность:
+$$\Scal{Ax}{x} = \Int{0}{1}\left(\Int{0}{1}x(s)e^{s+t}ds\right)x(t)dt = \left(\Int{0}{1}x(t)e^tdt\right)^2 
+\geqslant 0$$
+\end{Sol}
+
+\paragraph{Задача 18.16.} Последовательность самосопряженных операторов $A_n$ сильно сходится к $A$. Доказать,
+что $A$ является самосопряженным.
+
+\begin{Sol} Заметим, что
+$$\Scal{A_nx}{y} \to \Scal{Ax}{y},$$
+так как $\Scal{(A_n-A)x}{y} \leqslant \Norm{A_n-A}\Norm{x}\Norm{y} \to 0$.
+
+С другой стороны имеем
+$$\Scal{x}{A_ny} \to \Scal{x}{Ay},$$
+
+Но так как эти последовательности совпадают, $\Scal{Ax}{y} = \Scal{x}{Ay}$.
+\end{Sol}
+
+\paragraph{Задача 18.17.} Последовательность самосопряженных неотрицательных операторов $A_n$ сильно сходится к $A$.
+Доказать, что $A \geqslant 0$.
+
+\begin{Sol}
+$$\quad \Scal{A_nx}{x} \to \Scal{Ax}{x}$$
+Но так как $\Scal{A_nx}{x} \geqslant 0$, то и $\Scal{Ax}{x} \geqslant 0$, что и требовалось.
+\end{Sol}
+\newpage
+\paragraph{Задача 18.21.} Пусть $P\in L(\mathbb{H}), \ P^2 = P$. Доказать эквивалентность утверждений
+\begin{itemize}
+\item[(a)] $P$ является самосопряженным.
+\item[(b)] $PP^* = P^*P$
+\item[(c)] $\Ima P = \Ker^\bot P$
+\item[(d)] $\Scal{Px}{x} = \Norm{Px}^2 \ \forall x \in \mathbb{H}$
+\end{itemize}
+
+\begin{Sol}
+Эквивалентность (a) и (b) следует из теоремы 1 семинара.
+
+(a) $\Rightarrow$ (c), так как
+$$\Ima P = \Ker^\bot P^* = \Ker^\bot P.$$
+
+(a) $\Rightarrow$ (d), поскольку
+$$\Scal{Px}{Px} = \Scal{P^2x}{x} = \Scal{Px}{x}.$$
+
+Покажем, что из (c) следует (a). В силу (c) имеем $\mathbb{H} = \Ker P \bigoplus \Ima P$, а также
+ $\Ker P~=~\Ker P^*$. Тогда для любых $x, y$
+ $$x = x_1 + x_2, \quad x_1 \in \Ker P, \ x_2 \in \Ima P \ (\exists z_2\colon Pz_2 = x_2),$$
+ $$y = y_1 + y_2, \quad y_1 \in \Ker P, \ y_2 \in \Ima P \ (\exists w_2\colon Pw_2 = y_2),$$
+ 
+$$\Scal{Px}{y} = \Scal{Px_2}{y} = \Scal{x_2}{P^*y} = \Scal{x_2}{P^*y_2} = \Scal{P^2z_2}{y_2} = \Scal{Pz_2}{y_2} = 
+\Scal{x_2}{y_2}.$$
+
+Аналогично показывается $\Scal{x}{Py} = \Scal{x_2}{y_2}$, откуда следует самосопряженность $P$.
+
+Докажем, наконец, (d) $\Rightarrow$ (a). 
+$$\Norm{Px}^2 = \Scal{Px}{x} = \Scal{x}{P^*x} = \{\Norm{Px}^2 \in \Real\} = \Scal{P^*x}{x},$$
+то есть для любых $x$ верно $\Scal{(P-P^*)x}{x} = 0$ откуда следует (в комплексном пространстве), что $P = P^*$.
+\end{Sol}
+
+\paragraph{Задача 18.34.} Пусть $A$ --- самосопряженный неотрицательный оператор. Доказать, что при любом
+$\lambda > 0$ оператор $A + \lambda I$ непрерывно обратим.
+
+\begin{Sol} Данный оператор является самосопряженным как сумма двух самосопряженных, при этом 
+$$\Scal{(A+\lambda I)x}{x} = \Scal{Ax}{x} + \lambda \Scal{x}{x} > 0, \quad x \not= 0,$$
+откуда следует положительная определенность оператора. Отсюда же следует, что 
+$$\Ker A = \{0\}, \quad \Ima A = \Ker^\bot A = \mathbb{H},$$ а следовательно, оператор обратим. Непрерывность
+обратного оператора следует из теоремы Банаха.
+\end{Sol}
+
+\paragraph{задача 18.37.} Пусть неотрицательные самосопряженные операторы $A, B$ перестановочны. Доказать, что
+$AB \geqslant 0$.
+
+\begin{Sol}
+По теореме 18.6. оператор $\sqrt{A}$ является перестановочным с $\sqrt{B}$ тогда и только тогда, когда $A$ является
+перестановочным с $\sqrt{B}$, что выполнено в силу перестановочности $A$ и $B$. Таким образом
+ $\sqrt{A}\sqrt{B} = \sqrt{B}\sqrt{A}$.
+ $$\Scal{ABx}{x} = \Scal{\sqrt{A}Bx}{\sqrt{A}x} = \Scal{B\sqrt{A}x}{\sqrt{A}x} = 
+ \Scal{\sqrt{B}\sqrt{A}x}{\sqrt{B}\sqrt{A}x} \geqslant 0,$$
+ что и требовалось доказать.
+\end{Sol}
+
+\paragraph{Задача 18.41.} В $E^2$ задан оператор
+$$Ax = \begin{pmatrix} 2 & 3 \\ 3 & 5 \end{pmatrix} x.$$
+Показать, что он является самосопряженным и неотрицательным. Найти $\sqrt{A}$.
+
+\begin{Sol}
+Самосопряженность следует из симметричности матрицы оператора, положительная определенность из критерия Сильвестра.
+Пусть $B = \sqrt{A} = \begin{pmatrix} a & b \\ b & c \end{pmatrix}$.
+Из матричного уравнения $B^2 = A$ получаем систему
+$$
+\begin{cases}
+a^2 + b^2 = 2\\
+ab + bc = 3\\
+b^2 + c^2 = 5
+\end{cases}
+$$
+Отсюда легко находятся $a = b = 1, \ c = 2$, и квадратный корень имеет матрицу
+$\sqrt{A} =  \begin{pmatrix} 1 & 1 \\ 1 & 2 \end{pmatrix}.$
+\end{Sol}
+\end{document}
+
+
