@@ -1,0 +1,167 @@
+\documentclass[16pt]{article}
+\usepackage[russian]{babel}
+\usepackage{a4wide}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[2]{%
+    \def\svgwidth{#2 mm}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\newtheorem{Th}{Теорема}
+\newenvironment{Proof}{\par\noindent{\bf Доказательство.}}{\hfill$\scriptstyle\blacksquare$}
+\newenvironment{Sol}{\par\noindent{\it Решение:}}
+
+
+\DeclareMathOperator{\Arccos}{arccos}
+\DeclareMathOperator{\Arctg}{arctg}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\Ker}{ker}
+\DeclareMathOperator{\Ima}{im}
+\DeclareMathOperator*{\Argmax}{Argmax}
+\DeclareMathOperator*{\Var}{Var}
+
+
+\newcommand\Real{\mathbb{R}} 
+\newcommand\A{(\cdot)} 
+\newcommand\Sup[2]{\rho( #1 \, | \, #2 )}
+\newcommand\Sum[2]{\sum\limits_{#1}^{#2}}
+\newcommand\Scal[2]{\langle #1,\, #2 \rangle}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand\Int[2]{\int\limits_{#1}^{#2}}
+\newcommand\PS{\mathcal{P}}
+\newcommand\X{\mathcal{X}} 
+\newcommand\Pict[3]{
+\begin{figure}[h!]
+    \centering
+    \incfig{#1}{#3}
+    \caption{#2}
+    \label{fig:#1}
+\end{figure}
+}
+
+
+
+\begin{document}
+\paragraph{Домашнее задание от 42-ого дня карантина}
+\paragraph{Задача 16.1.} Являются ли вполне непрерывными следующие операторы $$A\colon C[0,\,1] \to C[0,\,1]?$$
+\begin{enumerate}
+\item $(Ax)(t) = x(0) + tx(1)$
+\item $(Ax)(t) = \Int{0}{1}e^{ts}x(s)ds$
+\item $(Ax)(t) = x(t^2)$
+\end{enumerate}
+\begin{Sol}
+\begin{enumerate}
+\item Для образа единичного шара
+$|(Ax)(t)| \leqslant 2\Norm{x}_C \leqslant 2,\ $
+$|(Ax)(t+h)-(Ax)(t)| = h|x(1)| \leqslant h.$
+Из теоремы Арцела-Асколи следует полная непрерывность $A$.
+\item $|(Ax)(t)| \leqslant e\Norm{x} \leqslant e, \ |(Ax)(t+h)-(Ax)(t)| = \left|\Int{0}{1}e^{ts}(e^{hs}-1)x(s)ds\right|
+\leqslant e(e^h - 1)$, то есть выполнены условия теоремы Арцела-Асколи.
+\item
+Пусть $x_n = t^n$. $\Norm{x_n} \leqslant 1$, при этом из $Ax_n = t^{2n}$ нельзя выделить фундаментальную 
+подпоследовательность, следовательно, $A$ не является вполне непрерывным.
+\end{enumerate}
+\end{Sol}
+
+\paragraph{Задача 16.5.} Будет ли оператор $(Ax)(t) = x'(t)$ вполне непрерывным, если он действует 
+\begin{enumerate}
+\item $A\colon C^1[0,\,1] \to C[0,\,1]$
+\item $A\colon C^2[0,\,1] \to C^1[0,\,1]$
+\item $A\colon C^2[0,\,1] \to C[0,\,1]$
+\end{enumerate}
+\begin{Sol}
+\begin{enumerate}
+\item Нет, достаточно рассмотреть последовательность $x_n = \frac{t^n}{n}$.
+\item Нет, рассмотрим последовательность $x_n = \frac{t^{n+1}}{n(n+1)}$. Она ограничена в $C^2[0,\,1]$,
+но ее образ не предкомпактен, так как из $(Ax_n)' = t^{n-1}$ нельзя выделить фундаментальную в 
+$C[0,\,1]$ подпоследовательность,
+а значит, нельзя выделить фундаментальную в $C^1[0,\,1]$ подпоследовательность из $\{Ax_n\}$.
+\item Для $x$ из единичного шара в $C^2[0,\,1]$ верно
+$$x'(t) \leqslant \Norm{x}_{C^2} \leqslant 1,$$
+$$|x'(t+h) - x'(t)| \leqslant |x''(\xi)|h \leqslant h.$$
+Пользуясь теоремой Арцела-Асколи, получаем предкомпактность образа единичного шара, а следовательно, полную
+непрерывность $A$.
+\end{enumerate}
+\end{Sol}
+
+\paragraph{Задача 16.9.} Доказать, что оператор вложения $Ix = x$, действующий из
+\begin{enumerate}
+\item $I\colon C^1[a,\,b] \to C[a,\,b]$
+\item $I\colon H^1[a,\,b] \to C[a,\,b]$
+\end{enumerate}
+вполне непрерывен.
+
+\begin{Sol}
+\begin{enumerate}
+\item $\Norm{x}_C \leqslant \Norm{x}_{C^1},\ |x(t+h) - x(t)| = |x'(\xi)|h \leqslant h$. Из теоремы Арцела-Асколи
+получаем требуемое утверждение.
+\item Вспомним эквивалентное определение вполне непрерывного оператора: оператор $A$ вполне непрерывен, если переводит
+слабо сходящуюся последовательность в сильно сходящуюся. Пусть $x_n\A$ сходится к $x\A$ в $H^1$ слабо. Так как $H^1$ 
+гильбертово, это означает, что для любой $f\A \in H^1$
+$$\Int{a}{b}[f(t)(x_n(t) - x(t)) + f'(t)(x_n'(t)-x'(t))]dt \to 0.$$
+Предположим, что $\Norm{x_n-x}_C \nrightarrow 0$. Тогда, в силу непрерывности функций, найдется интервал, на котором
+$\lim\sup|x_n(t)-x(t)| > \delta$ для некоторого $\delta > 0$. Взяв в качестве $f$ индикатор этого интервала
+(его можно приблизить непрерывно дифференцируемыми функциями), получаем противоречие.
+Значит, любая слабо сходящаяся в $H^1$ последовательность является сильно сходящейся в $C$, и оператор $A$ вполне 
+непрерывен.
+\end{enumerate}
+\end{Sol}
+
+\paragraph{Задача 16.12.} Оператор $Ax = x''$ определен на множестве дважды непрерывно дифференцируемых функций
+с $x(0) = x(1) = 0$. Доказать существование $A^{-1}$, найти его и доказать, что он является вполне непрерывным.
+\begin{Sol}
+Обратный оператор определен на множестве непрерывных функций. Решая уравнение $x'' = y$ с краевыми условиями 
+$x(0) = x(1) = 0$, находим 
+$$x(t) = \Int{0}{t}\Int{0}{\tau}y(s)dsd\tau - t\Int{0}{1}\Int{0}{\tau}y(s)dsd\tau.$$
+Для непрерывных $y\A$ из единичного шара относительно нормы $\Norm{\cdot}_{L_2}$ 
+$$\Norm{x\A}_{L_2} \leqslant 4,$$
+поскольку $\max |x(t)| \leqslant 2$ (неравенство треугольника и неравенство Гёльдера). Значит, множество $\{A^{-1}(y)\}$ равномерно
+ограничено.
+$$\Int{0}{1-h}[x(t+h)-x(t)]^2dt = \Int{0}{1-h}\left(\Int{t}{t+h}\Int{0}{\tau}y(s)dsd\tau - 
+h\Int{0}{1}\Int{0}{\tau}y(s)dsd\tau\right)^2dt \leqslant$$
+$$ \leqslant \Int{0}{1-h}\left(h+h\left|\Int{0}{1}\Int{0}{\tau}y(s)dsd\tau\right|
+\right)^2dt \leqslant \leqslant 4h^2.$$
+Из критерия предкомпактности в $L_2$ получаем требуемое.
+\end{Sol}
+
+\paragraph{Задача 16.20.} Пусть $\{e_n\}$ --- ортонормированный базис в гильбертовом пространстве $\mathbb{H}$.
+$\lambda_n \in \Real, \ \lambda_n \to 0$. Пусть
+$$Ax = \Sum{n=1}{\infty}\lambda_n\Scal{x}{e_n}e_n.$$
+Показать, что $A$ определен на всем $\mathbb{H}$, переводит его в себя и является вполне непрерывным.
+\begin{Sol}
+Гильбертово пространство с счётным базисом изоморфно $l_2$, поэтому будем отождествлять элементы $x \in \mathbb{H}$ 
+с $x \in l_2$.
+
+Тогда видно, что оператор
+$$Ax = (\lambda_1x_1,\, \lambda_2x_2,\, \ldots)$$
+определен для всех $x \in l_2$ и что $Ax \in l_2$ поскольку $\{\lambda_n\}$ ограничена и не влияет на сходимость ряда.
+
+Покажем, что образ единичного шара при действии $A$ является предкомпактным.
+$$\Norm{Ax} \leqslant \max|\lambda_n|\Norm{x},$$
+поэтому множество равномерно ограничено.
+$$\Sum{n=N}{\infty}\lambda_n^2x_n^2 \leqslant \max_{n \geqslant N}|\lambda_n| \to 0.$$
+Из критерия предкомпактности в $l_2$ получаем полную непрерывность $A$.
+\end{Sol}
+
+\paragraph{Задача 16.26.} Доказать, что множество значений вполне непрерывного оператора $A$ сепарабельно.
+\begin{Sol}
+Покажем, что образ единичного шара имеет счетное всюду плотное множество.
+Действительно, он является предкомпактным, а значит, вполне ограничен, и для любого $\epsilon > 0$ можно найти
+конечную $\epsilon-$сеть. Рассмотрим $\epsilon_n = \frac{1}{n}$ и возьмем $S$ --- объединение всех $\epsilon_n$-сетей.
+Это множество и будет искомым счетным всюду плотным множеством.
+Множество значений $A$ можно представить как $\bigcup\limits_rA(B_r(0))$, для $A(B_r(0))$ множество $rS$ является
+счетным всюду плотным, поэтому $\bigcup\limits_{r \in \mathbb{Q}}rS$ будет счетным всюду плотным множеством 
+для множества значений $A$.
+\end{Sol}
+\end{document}
+
+
