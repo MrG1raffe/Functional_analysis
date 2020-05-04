@@ -1,0 +1,152 @@
+\documentclass[16pt]{article}
+\usepackage[russian]{babel}
+\usepackage{a4wide}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{mathrsfs}  
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[2]{%
+    \def\svgwidth{#2 mm}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\newtheorem{Th}{Теорема}
+\newenvironment{Proof}{\par\noindent{\bf Доказательство.}}{\hfill$\scriptstyle\blacksquare$}
+\newenvironment{Sol}{\par\noindent{\it Решение:}}
+
+
+\DeclareMathOperator{\Arccos}{arccos}
+\DeclareMathOperator{\Arctg}{arctg}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\Ker}{ker}
+\DeclareMathOperator{\Ima}{im}
+\DeclareMathOperator*{\Argmax}{Argmax}
+\DeclareMathOperator*{\Var}{Var}
+
+
+\newcommand\Real{\mathbb{R}} 
+\newcommand\A{(\cdot)} 
+\newcommand\Sup[2]{\rho( #1 \, | \, #2 )}
+\newcommand\Sum[2]{\sum\limits_{#1}^{#2}}
+\newcommand\Scal[2]{\langle #1,\, #2 \rangle}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand\Int[2]{\int\limits_{#1}^{#2}}
+\newcommand\PS{\mathcal{P}}
+\newcommand\X{\mathcal{X}} 
+\newcommand\Pict[3]{
+\begin{figure}[h!]
+    \centering
+    \incfig{#1}{#3}
+    \caption{#2}
+    \label{fig:#1}
+\end{figure}
+}
+
+
+
+\begin{document}
+\paragraph{Домашнее задание от 49-ого дня карантина}
+\paragraph{Задача 19.4.(б)} Найти собственные значения и собственные векторы оператора
+$$Ax(t) = \Int{-\pi}{\pi}\cos(s+t)x(s)ds,$$
+действующего в пространстве $C[-\pi,\,\pi]$.
+\begin{Sol}
+$$Ax(t) = \cos(t)\Int{-\pi}{\pi}cos(s)x(s)ds - \sin(t)\Int{-\pi}{\pi}sin(s)x(s)ds = \lambda x(t)$$
+
+Если $\lambda = 0$, то собственными векторами являются все элементы, ортогональные к $\sin(t)$ и $\cos(t)$ в
+смысле скалярного произведения в $L_2$. 
+
+При $\lambda \not= 0$ нужно искать решение в виде линейной комбинации $x(t) = c_1 \sin(t) + c_2 \cos(t)$
+Приравнивая коэффициенты в обеих частях уравнения, получаем
+\[
+\begin{cases}
+	c_1 \pi = -\lambda c_1 \\
+	c_2 \pi = \lambda c_2
+\end{cases}
+\] 
+Здесь возможны всего два случая: 
+\begin{enumerate}
+\item $c_1 = 0$, тогда $\lambda = \pi$, и собственный вектор $x(t) = \cos(t)$.
+\item $c_2 = 0,\ \lambda = -\pi$, собственный вектор $x(t) = \sin(t)$.
+\end{enumerate}
+\end{Sol} 
+
+\paragraph{Задача 19.5.} Найти собственные значения и собственные векторы оператора $Ax(t) = x''(t)$, действующего
+в пространстве $C[0,\,\pi]$, если область определения имеет вид
+\begin{enumerate}
+\item $D(A) = \{x\A \in C[0,\,\pi]\colon x''\A \in C[0,\,\pi],\ x(0) = x(\pi) = 0\}$
+\item $D(A) = \{x\A \in C[0,\,\pi]\colon x''\A \in C[0,\,\pi],\ x'(0) = x'(\pi) = 0\}$
+\item $D(A) = \{x\A \in C[0,\,\pi]\colon x''\A \in C[0,\,\pi],\ x(0) = x(\pi),\ x'(0) = x'(\pi)\}$
+\end{enumerate}
+
+\begin{Sol}
+Если $\lambda > 0$, то решением уравнения
+$$x''(t) = \lambda x(t)$$
+является функция $x(t) = e^{\sqrt{\lambda}t}$, которая не удовлетворяет краевым условиям, поэтому будем
+рассматривать $\lambda \leqslant 0$. В этом случае решениями являются функции $\cos(\sqrt{\lambda}t), \  \sin(\sqrt{\lambda}t)$. Из краевых условий получаем
+\begin{enumerate}
+\item $\lambda = -k^2,\ x(t) = \sin(k\lambda),\ k = 1, 2, \ldots$ 
+\item $\lambda = -k^2,\ x(t) = \cos(k\lambda),\ k = 0, 1, 2, \ldots$ 
+\item $\lambda = -4k^2,\ x(t) = \sin(2k\lambda), \ x(t) = \cos(2k\lambda), \ k = 1, 2, \ldots$ 
+\end{enumerate}
+\end{Sol}
+
+\paragraph{Задача 19.13.} Пусть $A \in \mathscr{L}(X)$. Может ли $R_\lambda(A) = (A - \lambda I)^{-1}$ быть вполне
+непрерывным?
+\begin{Sol}
+Резольвента является непрерывным оператором, поэтому в конечномерных пространствах, где непрерывность эквивалентна
+полной непрерывности, утверждение выполнено.
+
+В случае бесконечномерного пространства заметим, что, в силу принципа Банаха об открытости, образ открытого единичного
+шара при действии непрерывного оператора открыт, а значит, содержит в себе шар некоторого радиуса, не являющийся
+предкомпактом в бесконечномерном банаховом пространстве. Образ замкнутого единичного шара тогда содержит в себе
+непредкомпактное множество, и потому сам не является предкомпактным. 
+
+Таким образом, $R_\lambda$ вполне непрерывен
+в том и только том случае, когда пространство конечномерно.
+\end{Sol}
+
+\paragraph{Задача 19.14.} Рассмотрим в $C[0,\,1]$ оператор $Ax(t) = tx(t)$. Доказать, что $\sigma(A) = [0,\,1]$
+и ни одна из точек спектра не является собственным значением.
+\begin{Sol}
+Так как $\Norm{A} = 1$, получаем $\sigma(A) \subset [-1,\,1]$.
+Уравнение $(A - \lambda I)x = y$ принимает вид:
+$$(t-\lambda)x(t) = y(t),$$
+отсюда при $\lambda < 0$ оператор непрерывно обратим, и
+$$(A - \lambda I)^{-1}y(t) = \frac{y(t)}{t - \lambda}.$$
+При $\lambda \geqslant 0$ этот оператор разрывен, и потому
+$\sigma(A) = [0,\,1]$.
+
+В спектре отсутствуют собственные значения, поскольку уравнение
+$$tx(t) = \lambda x(t)$$
+имеет лишь нулевое решение в классе непрерывных функций.
+\end{Sol}
+
+\paragraph{Задача 19.18.} В $C[0,\,1]$ задан оператор $Ax(t) = \Int{0}{t} x(\tau)d\tau$. Найти $\sigma(A), \ 
+R_\lambda(A)$.
+
+\begin{Sol}
+Так как $\Norm{A} = 1$, $\ \sigma(A) \subset [-1,\,1]$.
+Уравнение $(A-\lambda I)x = y$ эквивалентно
+$$\Int{0}{t}x(\tau)d\tau = \lambda x(t) + y(t)$$
+Так как левая часть непрерывно дифференцируема, обозначая $z(t) = \lambda x(t) + y(t)$ и дифференцируя обе
+части, находим
+$$x(t) = \dot{z}(t).$$
+При $\lambda \not= 0$ получаем линейное дифференциальное уравнение
+$$\dot{z}(t) + \frac{z(t)}{\lambda} - \frac{y(t)}{\lambda} = 0,$$
+решение которого находится по формуле Коши. Учитывая $z(0) = 0$, получаем
+$$z(t) = \frac{1}{\lambda}\Int{0}{t}e^{\frac{1}{\lambda}(\tau - t)}y(\tau)d\tau,$$ 
+откуда
+$$x(t) = \frac{1}{\lambda^2}\Int{0}{t}e^{\frac{1}{\lambda}(\tau - t)}y(\tau)d\tau - \frac{1}{\lambda}y(t).$$ 
+Очевидно, что этот оператор непрерывен, и потому $[-1,\,1]\setminus \{0\} \subset \rho(A)$.
+Но так как спектр непрерывного оператора непуст, то он состоит из единственной точки $\sigma(A) = \{0\}$.
+\end{Sol}
+\end{document}
+
+
